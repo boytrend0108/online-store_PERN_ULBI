@@ -49,11 +49,8 @@ class UserController {
   }
 
   async check(req, res, next) {
-    const { id } = req.query;
-    if (!id) {
-      return next(ApiError.badRequest('Id is required'));
-    }
-    res.json({ id });
+    const token = generateJWT(req.user.id, req.user.email, req.user.role);
+    res.json({ token });
   }
 }
 
